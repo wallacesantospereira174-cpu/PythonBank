@@ -21,10 +21,29 @@ def pesquisa():
          except ValueError:
               print("Comando não existente por favor digite um comando valido.")
 
+def criar_conta():
+     nome = input("Digite seu nome:")
+     while True:
+          try:
+              cpf = int(input("Digite seu CPF:"))
+              break
+          except ValueError:
+               print("Número não correspondente.")
+
+     conta_cpf = (cpf,)
+     contas[conta_cpf] = {
+          "nome": nome,
+          "saldo":0,
+          "historico": [],
+     }
 
 
 while True:
      menu()
      consulta = pesquisa()
-
+     
+     if consulta == 1:
+          criar_conta()
+     elif consulta == 2:
+          
           
