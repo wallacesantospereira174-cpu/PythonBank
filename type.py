@@ -37,6 +37,32 @@ def criar_conta():
           "historico": [],
      }
 
+def depositar():
+     while True:
+          try:
+               numero_de_conta = int(input("Número da conta:"))
+               break
+          except ValueError:
+               print("Comando não existente por favor digite um comando valido.")
+
+
+     conta = (numero_de_conta,)
+
+     if conta in contas:
+            while True:
+                    try:
+                        valor = int(input("Valor a ser depositado:"))
+                        break
+                    except ValueError:
+                         print("Valor invalido.")
+
+            contas[conta]["saldo"] += valor
+
+            contas[conta]["historico"].append(f'Deposito:R$ {valor}')
+
+            print(f'\n Valor depositado com sucesso!')
+     else:
+               print("Conta não encontrada!" )
 
 while True:
      menu()
@@ -45,5 +71,4 @@ while True:
      if consulta == 1:
           criar_conta()
      elif consulta == 2:
-          
-          
+          depositar()
