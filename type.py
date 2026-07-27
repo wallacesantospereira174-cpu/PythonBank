@@ -62,7 +62,45 @@ def depositar():
 
             print(f'\n Valor depositado com sucesso!')
      else:
-               print("Conta não encontrada!" )
+          print("Conta não encontrada!" )    
+
+def sacar():
+    while True:
+        try:
+            numero_de_conta = int(input("Número da conta: "))
+            break
+        except ValueError:
+            print("Comando não existente, por favor digite um comando válido.")
+
+    conta = (numero_de_conta,)
+
+    if conta in contas:
+        saldo = contas[conta]["saldo"]
+        if saldo > 0:
+            print(f"Saldo atual: R$ {saldo:.2f}")
+
+            while True:
+                try:
+                    valor_saque = float(input("Valor a ser sacado: "))
+                    break
+                except ValueError:
+                    print("\nPor favor, digite um valor válido.")
+
+            if valor_saque > 0:
+                if saldo >= valor_saque:
+                    contas[conta]["saldo"] -= valor_saque
+                    saldo_atual = contas[conta]["saldo"]
+                    print(f'Saldo atual: R$ {saldo_atual:.2f}')
+                    contas[conta]["historico"].append(f'Saque: R$ {valor_saque:.2f}')
+                else:
+                    print("Saldo insuficiente.")
+            else:
+                print("O valor do saque deve ser maior que zero.")
+        else:
+            print("Saldo indisponível para realizar saques.")
+    else:
+        print("Conta não existe!")
+
 
 while True:
      menu()
@@ -72,3 +110,5 @@ while True:
           criar_conta()
      elif consulta == 2:
           depositar()
+     elif consulta == 3:
+           sacar()
