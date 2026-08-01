@@ -51,7 +51,7 @@ def depositar():
      if conta in contas:
             while True:
                     try:
-                        valor = int(input("Valor a ser depositado:"))
+                        valor = float(input("Valor a ser depositado:"))
                         break
                     except ValueError:
                          print("Valor invalido.")
@@ -101,14 +101,60 @@ def sacar():
     else:
         print("Conta não existe!")
 
+def transferir():
+     def buscar_conta():
+          while True:
+               try:
+                    conta_busca = int(input("Número de conta de usuario:"))
+                    return conta_busca
+               except ValueError:
+                    print("Comando não existente, por favor digite um comando válido.")
+     busca = buscar_conta()
+     conta = (busca,)
+     if conta in  contas:
+          while True:
+               try:
+                    transferencia = float(input("Valor de transferência:"))
+                    break
+               except ValueError:
+                    print("Coloque um valor valido.")
+                    
+          saldo = contas[conta]["saldo"]
+          if transferencia > 0:
+               if saldo >= transferencia:
+                    chave_de_conta_receptora =  buscar_conta()
+                    conta_recebe = (chave_de_conta_receptora,)
+                    if conta_recebe in contas:
+                         if conta_recebe == conta:
+                              print("Não pode fazer uma trazação para você mesmo.")  
+                         else:
+                              nome_cliente1 = contas[conta]["nome"]
+                              nome_cliente2 = contas[conta_recebe]["nome"]
+                              contas[conta]["historico"].append(f'Transferência de R$ {transferencia:.2f} para {nome_cliente2}')
+                              contas[conta]["saldo"] -= transferencia
+                              contas[conta_recebe]["saldo"] += transferencia
+                              contas[conta_recebe]["historico"].append(f'Recebido de {nome_cliente1} R$: {transferencia:.2f} ')  
+                         
+                    else:
+                         print("Conta não encontrada.")
+                         
+               else:
+                    print("Saldo insuficiente.")
+          else:
+               print("Valor tem que ser maior que zero.")
+     else:
+          print("Conta não existente.")
 
 while True:
      menu()
      consulta = pesquisa()
      
-     if consulta == 1:
+     if consulta == 1: 
           criar_conta()
      elif consulta == 2:
           depositar()
      elif consulta == 3:
-           sacar()
+          sacar()
+     elif consulta == 4:
+          transferir()
+
