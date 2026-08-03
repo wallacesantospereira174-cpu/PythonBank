@@ -144,6 +144,36 @@ def transferir():
                print("Valor tem que ser maior que zero.")
      else:
           print("Conta não existente.")
+          
+def Consultar_saldo():
+     def buscar_conta():
+          while True:
+               try:
+                    conta_busca = int(input("Número de conta de usuario:"))
+                    return conta_busca
+               except ValueError:
+                    print("Comando não existente, por favor digite um comando válido.")
+     busca = buscar_conta()
+     conta = (busca,)
+     if conta in contas:
+          if not contas[conta]["historico"]:
+               print("Histórico vazio.")
+          else:
+               print("||" + "="*30 +  "||")
+               print("||"   +   " Historico "  +    "||")
+               saldo = contas[conta]["saldo"]
+               for  historico in contas[conta]["historico"]:
+                    print(historico)
+               
+               print("||"  + "="*30  + "||")
+               print("||"  +   "Saldo disponivel "  +   "||")
+               print("="*30)
+               print(f"Saldo disponivel R$: {saldo:.2f}")
+          
+               print("||" +  "="*30 +  "||")
+     else:
+          print("Conta não existente.")  
+
 
 while True:
      menu()
@@ -157,4 +187,5 @@ while True:
           sacar()
      elif consulta == 4:
           transferir()
-
+     elif consulta == 5:
+          Consultar_saldo()
