@@ -189,6 +189,35 @@ def Listar_contas():
                print("-" * 30)
           print("=" * 35)
 
+def excluir_conta():
+     def buscar_conta():
+          while True:
+               try:
+                    conta_busca = int(input("Número de conta de usuario:"))
+                    return conta_busca
+               except ValueError:
+                    print("Comando não existente, por favor digite um comando válido.")
+     busca = buscar_conta()
+     conta = (busca,)
+     if conta in contas:
+          nome_conta = contas[conta]["nome"]
+          print("="*30)
+          print(f"Deseja mesmo excluir conta: {nome_conta}?")
+          print(" Digite 'sim' para confirmar ou 'não' para cancelar.")
+          while True:
+               opcao = input("Digite Sim ou Não:").strip().lower()
+               if opcao == "sim":
+                    print(f"A conta de {nome_conta} foi excluída com sucesso.")
+                    contas.pop(conta)
+                    break
+               elif opcao == "não" or opcao == "nao":
+                    print(f"Conta {nome_conta} cancelada a exclusão. ")
+                    break
+               else:
+                    print("Digite Sim ou Não para confirmar.")
+     else:
+          print("Conta não cadastrada ")
+
 while True:
      menu()
      consulta = pesquisa()
@@ -205,3 +234,8 @@ while True:
           Consultar_saldo()
      elif consulta == 6:
           Listar_contas()     
+     elif consulta == 7:
+          excluir_conta()
+     elif consulta == 0:
+          print("Fechando banco Master.")
+          break
