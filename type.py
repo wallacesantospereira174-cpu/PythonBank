@@ -172,8 +172,22 @@ def Consultar_saldo():
           
                print("||" +  "="*30 +  "||")
      else:
-          print("Conta não existente.")  
+          print("Conta não existente.")
+          
 
+def Listar_contas():
+     if not contas:
+          print("Não existe nenhuma conta cadastrada.")
+     else:
+          print("=" * 35)
+          print("      CONTAS CADASTRADAS")
+          print("=" * 35)
+          for cpf, dados in contas.items():
+               print(f"CPF: {cpf[0]}")
+               print(f"Nome: {dados['nome']}")
+               print(f"Saldo: R$ {dados['saldo']:.2f}")
+               print("-" * 30)
+          print("=" * 35)
 
 while True:
      menu()
@@ -189,3 +203,5 @@ while True:
           transferir()
      elif consulta == 5:
           Consultar_saldo()
+     elif consulta == 6:
+          Listar_contas()     
